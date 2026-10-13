@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Alexa's Portfolio — AI Web Development, Photography, Translation, Tarot & Film/Book Reading." />
+  <title>Alexa · Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ================================================================
+       ALL CSS INLINED HERE
+       ================================================================ -->
+  <style>
+    /* ============================ 0. Tokens ======================== */
+    :root {
+      --bg:          #faf8f5;
+      --bg-alt:      #f3efe9;
+      --bg-glow-1:   rgba(201, 189, 166, 0.18);
+      --bg-glow-2:   rgba(180, 200, 175, 0.12);
+      --surface:     #ffffff;
+      --surface-2:   #f8f6f2;
+      --border:      #e8e3da;
+      --border-strong:#d8d0c2;
+      --text:        #25231f;
+      --text-soft:   #615e57;
+      --text-mute:   #9a968d;
+      --accent:      #7d6b53;
+      --accent-dark: #5f4f3c;
+      --accent-soft: #c4b599;
+      --accent-bg:   #efe8dc;
+      --accent-glow: rgba(125, 107, 83, 0.12);
+      --green:       #6b8f71;
+      --f-sans:  'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --f-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --r-sm: 10px; --r-md: 16px; --r-lg: 24px; --r-xl: 32px;
+      --shadow-xs: 0 1px 2px rgba(37,35,31,.05);
+      --shadow-sm: 0 2px 8px rgba(37,35,31,.06), 0 1px 3px rgba(37,35,31,.04);
+      --shadow-md: 0 8px 30px rgba(37,35,31,.09), 0 2px 8px rgba(37,35,31,.05);
+      --shadow-lg: 0 20px 60px rgba(37,35,31,.12), 0 4px 16px rgba(37,35,31,.06);
+      --nav-h: 72px;
+      --maxw: 1140px;
+    }
+    /* 1. Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-sans); background: var(--bg); color: var(--text);
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility; position: relative; overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -2;
+      background:
+        radial-gradient(ellipse 60% 50% at 15% 0%, var(--bg-glow-1), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 85% 20%, var(--bg-glow-2), transparent 55%),
+        radial-gradient(ellipse 40% 35% at 50% 100%, rgba(176,123,138,.08), transparent 50%);
+      pointer-events: none;
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; z-index: -1; opacity: 0.4;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.15  0 0 0 0 0.14  0 0 0 0 0.12  0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--accent-bg); color: var(--text); }
+    /* 2. Layout */
+    .container { width: min(var(--maxw), 90%); margin-inline: auto; }
+    .page { padding: 110px 0 90px; scroll-margin-top: var(--nav-h); position: relative; }
+    .page--alt { background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%); }
+    .section-head { margin-bottom: 52px; }
+    .section-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; color: var(--accent); margin-bottom: 12px; }
+    .section-eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--accent-soft); }
+    .section-title { font-family: var(--f-serif); font-weight: 500; font-size: clamp(2rem, 4.5vw, 3.2rem); line-height: 1.1; letter-spacing: -.02em; margin-bottom: 14px; }
+    .section-sub { color: var(--text-soft); font-size: 1.08rem; max-width: 56ch; line-height: 1.6; }
+    /* 3. Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 100px; font-size: .9rem; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: all .25s cubic-bezier(.4,0,.2,1); white-space: nowrap; }
+    .btn:active { transform: translateY(1px) scale(.98); }
+    .btn--primary { background: var(--text); color: #fff; box-shadow: 0 4px 14px rgba(37,35,31,.18); }
+    .btn--primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(37,35,31,.22); }
+    .btn--ghost { border-color: var(--border-strong); background: var(--surface); color: var(--text); }
+    .btn--ghost:hover { border-color: var(--accent-soft); background: var(--accent-bg); transform: translateY(-2px); }
+    .btn--small { padding: 9px 18px; font-size: .82rem; }
+    /* 4. Navigation */
+    .nav { position: sticky; top: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; background: rgba(250,248,245,.78); backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px); border-bottom: 1px solid var(--border); }
+    .nav__inner { width: min(var(--maxw), 90%); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav__logo { font-family: var(--f-serif); font-size: 1.45rem; font-weight: 600; letter-spacing: .01em; display: flex; align-items: center; gap: 8px; }
+    .nav__logo::before { content: "\2731"; color: var(--accent); font-size: 1.1rem; }
+    .nav__menu { display: flex; align-items: center; gap: 2px; }
+    .nav__link { padding: 9px 16px; border-radius: 100px; font-size: .88rem; font-weight: 500; color: var(--text-soft); transition: all .2s; }
+    .nav__link:hover { color: var(--text); background: var(--accent-bg); }
+    .nav__link.is-active { color: var(--text); background: var(--accent-bg); font-weight: 600; }
+    .nav__lang { margin-left: 12px; padding: 9px 16px; border-radius: 100px; border: 1px solid var(--border-strong); background: var(--surface); font-family: var(--f-sans); font-size: .85rem; font-weight: 600; cursor: pointer; color: var(--text); transition: all .2s; display: inline-flex; align-items: center; gap: 6px; }
+    .nav__lang::before { content: "\1F310"; font-size: .95rem; }
+    .nav__lang:hover { border-color: var(--accent-soft); background: var(--accent-bg); }
+    .nav__toggle { display: none; width: 44px; height: 44px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; position: relative; transition: border-color .2s; }
+    .nav__toggle:hover { border-color: var(--accent-soft); }
+    .nav__toggle span { position: absolute; left: 12px; right: 12px; height: 2px; background: var(--text); border-radius: 2px; transition: all .28s; }
+    .nav__toggle span:nth-child(1) { top: 15px; }
+    .nav__toggle span:nth-child(2) { top: 21px; }
+    .nav__toggle span:nth-child(3) { top: 27px; }
+    .nav__toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+    .nav__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav__toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+    /* 5. Home */
+    .page--home { padding-top: 60px; }
+    .home-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: 56px; align-items: center; min-height: 70vh; margin-bottom: 100px; position: relative; }
+    .home-grid::before { content: ""; position: absolute; top: 10%; right: 38%; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow), transparent 70%); z-index: -1; }
+    .home-intro__tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 100px; background: var(--accent-bg); color: var(--accent-dark); font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 22px; }
+    .home-intro__tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(107,143,113,.2); }
+    .home-intro__name { font-family: var(--f-serif); font-size: clamp(3.2rem, 9vw, 6rem); font-weight: 600; line-height: .95; letter-spacing: -.03em; margin-bottom: 22px; background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .home-intro__roles { font-size: 1.1rem; font-weight: 500; color: var(--accent-dark); margin-bottom: 22px; line-height: 1.5; }
+    .home-intro__desc { color: var(--text-soft); font-size: 1.1rem; max-width: 52ch; margin-bottom: 34px; line-height: 1.7; }
+    .home-intro__cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .home-visual { display: flex; justify-content: center; }
+    .home-visual__card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 44px 36px; box-shadow: var(--shadow-lg); text-align: center; position: relative; overflow: hidden; }
+    .home-visual__card::before { content: ""; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow), transparent 70%); }
+    .home-visual__avatar { width: 140px; height: 140px; margin: 0 auto 26px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-bg), var(--accent-soft)); display: flex; align-items: center; justify-content: center; font-family: var(--f-serif); font-size: 3.4rem; font-weight: 600; color: var(--accent-dark); border: 3px solid var(--surface); box-shadow: 0 8px 30px var(--accent-glow); position: relative; }
+    .home-visual__meta { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: .82rem; color: var(--text-mute); font-weight: 500; }
+    .home-visual__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(107,143,113,.18); }
+    .home-visual__stats { display: flex; justify-content: center; gap: 24px; margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--border); }
+    .home-visual__stat { text-align: center; }
+    .home-visual__stat-num { font-family: var(--f-serif); font-size: 1.6rem; font-weight: 600; color: var(--text); }
+    .home-visual__stat-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-mute); }
+    /* 6. Skills */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 32px 28px; transition: all .3s cubic-bezier(.4,0,.2,1); position: relative; overflow: hidden; }
+    .skill-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-soft), var(--accent)); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+    .skill-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--accent-soft); }
+    .skill-card:hover::before { transform: scaleX(1); }
+    .skill-card__icon { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 14px; background: var(--accent-bg); font-size: 1.5rem; color: var(--accent-dark); margin-bottom: 18px; }
+    .skill-card__title { font-size: 1.12rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -.01em; }
+    .skill-card__desc { font-size: .92rem; color: var(--text-soft); margin-bottom: 16px; line-height: 1.6; }
+    .skill-card__link { display: inline-flex; align-items: center; gap: 4px; font-size: .82rem; color: var(--accent); font-weight: 600; transition: gap .2s; }
+    .skill-card__link:hover { gap: 8px; }
+    /* 7. AI Web */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 26px; }
+    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; transition: all .3s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; }
+    .project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--accent-soft); }
+    .project-card__thumb { aspect-ratio: 16/10; background: linear-gradient(135deg, var(--accent-bg), var(--bg-alt)); display: flex; align-items: center; justify-content: center; font-family: var(--f-serif); font-size: 3rem; font-weight: 600; color: var(--accent-soft); position: relative; border-bottom: 1px solid var(--border); }
+    .project-card__thumb::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent 0 20px, rgba(125,107,83,.04) 20px 40px); }
+    .project-card__thumb img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+    .project-card__body { padding: 26px 26px 28px; flex: 1; display: flex; flex-direction: column; }
+    .project-card__tag { display: inline-block; width: fit-content; font-size: .68rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 600; color: var(--accent-dark); background: var(--accent-bg); padding: 4px 10px; border-radius: 100px; margin-bottom: 12px; }
+    .project-card__title { font-size: 1.22rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -.01em; }
+    .project-card__desc { font-size: .92rem; color: var(--text-soft); margin-bottom: 20px; flex: 1; line-height: 1.6; }
+    .project-card__links { display: flex; gap: 10px; flex-wrap: wrap; }
+    /* 8. Gallery */
+    .photo-cta { margin-bottom: 40px; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .gallery__item { position: relative; border-radius: var(--r-md); overflow: hidden; aspect-ratio: 1/1; background: linear-gradient(135deg, var(--accent-bg), var(--bg-alt)); display: flex; align-items: center; justify-content: center; transition: all .35s cubic-bezier(.4,0,.2,1); cursor: pointer; }
+    .gallery__item::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent 0 16px, rgba(125,107,83,.05) 16px 32px); transition: opacity .3s; }
+    .gallery__item:hover { transform: translateY(-4px) scale(1.01); box-shadow: var(--shadow-md); }
+    .gallery__item:hover::after { opacity: .5; }
+    .gallery__item a { display: contents; }
+    .gallery__item img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+    .gallery__placeholder { font-family: var(--f-serif); font-size: 2rem; color: var(--accent-soft); position: relative; z-index: 1; }
+    .gallery__label { position: absolute; left: 14px; bottom: 14px; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 100px; font-size: .76rem; font-weight: 600; color: var(--text); z-index: 2; box-shadow: var(--shadow-xs); }
+    .gallery__item:nth-child(1) { grid-row: span 2; aspect-ratio: 1/2.05; }
+    /* 9. Soul */
+    .page--soul { background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 50%, var(--bg-alt) 100%); }
+    .soul-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; margin-bottom: 64px; }
+    .soul-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; }
+    .soul-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 48px 40px; text-align: center; box-shadow: var(--shadow-sm); transition: all .3s cubic-bezier(.4,0,.2,1); position: relative; overflow: hidden; }
+    .soul-card::before { content: ""; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow), transparent 65%); }
+    .soul-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); border-color: var(--accent-soft); }
+    .soul-card__icon { display: inline-flex; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-bg), var(--accent-soft)); font-size: 2.2rem; color: var(--accent-dark); margin-bottom: 22px; position: relative; box-shadow: 0 8px 24px var(--accent-glow); }
+    .soul-card h3 { font-family: var(--f-serif); font-size: 1.65rem; font-weight: 500; margin-bottom: 16px; position: relative; }
+    .soul-card p { color: var(--text-soft); font-size: 1rem; margin-bottom: 28px; line-height: 1.7; position: relative; }
+    .soul-card__links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; position: relative; }
+    .soul-note { margin-top: 56px; padding: 36px 44px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); font-family: var(--f-serif); font-size: 1.18rem; font-style: italic; color: var(--text-soft); text-align: center; line-height: 1.7; box-shadow: var(--shadow-xs); position: relative; }
+    .soul-note::before { content: "\275D"; position: absolute; top: -8px; left: 28px; font-size: 3rem; color: var(--accent-soft); font-family: var(--f-serif); line-height: 1; }
+    /* 9b. AI Virtual Assistant */
+    .page--aiva { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+    .aiva-hero { display: grid; grid-template-columns: .4fr .6fr; gap: 40px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 48px; margin-bottom: 52px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+    .aiva-hero::before { content: ""; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow), transparent 70%); }
+    .aiva-hero__visual { display: flex; flex-direction: column; align-items: center; gap: 18px; position: relative; }
+    .aiva-hero__orb { width: 130px; height: 130px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-bg), var(--accent-soft)); display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--accent-dark); position: relative; box-shadow: 0 8px 30px var(--accent-glow); }
+    .aiva-hero__pulse { position: absolute; inset: -8px; border-radius: 50%; border: 2px solid var(--accent-soft); animation: pulse-ring 2.5s ease-out infinite; opacity: 0; }
+    @keyframes pulse-ring { 0% { transform: scale(.92); opacity: .6; } 100% { transform: scale(1.3); opacity: 0; } }
+    .aiva-hero__badge { font-size: .78rem; font-weight: 600; color: var(--green); background: rgba(107,143,113,.1); padding: 5px 14px; border-radius: 100px; display: flex; align-items: center; gap: 6px; }
+    .aiva-hero__badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(107,143,113,.2); }
+    .aiva-hero__body { position: relative; }
+    .aiva-hero__body h3 { font-family: var(--f-serif); font-size: 1.7rem; font-weight: 500; margin-bottom: 14px; }
+    .aiva-hero__body p { color: var(--text-soft); font-size: 1rem; margin-bottom: 24px; line-height: 1.7; }
+    .aiva-hero__links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .aiva-caps { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .aiva-cap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 28px 24px; transition: all .3s cubic-bezier(.4,0,.2,1); position: relative; overflow: hidden; }
+    .aiva-cap::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-soft), var(--accent)); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+    .aiva-cap:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--accent-soft); }
+    .aiva-cap:hover::before { transform: scaleX(1); }
+    .aiva-cap__icon { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px; background: var(--accent-bg); font-size: 1.35rem; color: var(--accent-dark); margin-bottom: 16px; }
+    .aiva-cap__title { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+    .aiva-cap__desc { font-size: .9rem; color: var(--text-soft); line-height: 1.6; margin-bottom: 14px; }
+    .aiva-cap__link { display: inline-flex; align-items: center; gap: 4px; font-size: .82rem; color: var(--accent); font-weight: 600; transition: gap .2s; }
+    .aiva-cap__link:hover { gap: 8px; }
+    /* 9c. Blog (Soul Journal) */
+    .blog-featured { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; margin-bottom: 56px; box-shadow: var(--shadow-sm); transition: all .3s; display: grid; grid-template-columns: .45fr .55fr; }
+    .blog-featured:hover { box-shadow: var(--shadow-md); border-color: var(--accent-soft); }
+    .blog-featured__cover { background: linear-gradient(135deg, var(--accent-bg), var(--bg-alt)); display: flex; align-items: center; justify-content: center; min-height: 280px; position: relative; border-right: 1px solid var(--border); }
+    .blog-featured__cover::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent 0 20px, rgba(125,107,83,.04) 20px 40px); }
+    .blog-featured__cover-icon { font-size: 3.5rem; color: var(--accent-soft); position: relative; z-index: 1; }
+    .blog-featured__body { padding: 40px 40px; display: flex; flex-direction: column; }
+    .blog-featured__tag { display: inline-block; width: fit-content; font-size: .68rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 600; color: var(--accent-dark); background: var(--accent-bg); padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .blog-featured__date { font-size: .8rem; color: var(--text-mute); margin-bottom: 10px; }
+    .blog-featured__title { font-family: var(--f-serif); font-size: 1.8rem; font-weight: 500; line-height: 1.25; margin-bottom: 14px; }
+    .blog-featured__excerpt { color: var(--text-soft); font-size: .98rem; line-height: 1.7; margin-bottom: 22px; flex: 1; }
+    .blog-featured__link { display: inline-flex; align-items: center; gap: 4px; font-size: .88rem; color: var(--accent); font-weight: 600; transition: gap .2s; }
+    .blog-featured__link:hover { gap: 8px; }
+    .blog-list-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+    .blog-list-title { font-family: var(--f-serif); font-size: 1.45rem; font-weight: 500; }
+    .blog-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+    .blog-post { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; transition: all .3s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; }
+    .blog-post:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--accent-soft); }
+    .blog-post__cover { aspect-ratio: 16/9; background: linear-gradient(135deg, var(--accent-bg), var(--bg-alt)); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--accent-soft); position: relative; border-bottom: 1px solid var(--border); }
+    .blog-post__cover::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent 0 16px, rgba(125,107,83,.04) 16px 32px); }
+    .blog-post__cover img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+    .blog-post__body { padding: 24px 24px 28px; flex: 1; display: flex; flex-direction: column; }
+    .blog-post__tag { display: inline-block; width: fit-content; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; color: var(--accent-dark); background: var(--accent-bg); padding: 3px 10px; border-radius: 100px; margin-bottom: 10px; }
+    .blog-post__date { font-size: .76rem; color: var(--text-mute); margin-bottom: 8px; }
+    .blog-post__title { font-size: 1.15rem; font-weight: 600; line-height: 1.35; margin-bottom: 10px; }
+    .blog-post__excerpt { font-size: .88rem; color: var(--text-soft); line-height: 1.6; margin-bottom: 16px; flex: 1; }
+    .blog-post__link { display: inline-flex; align-items: center; gap: 4px; font-size: .82rem; color: var(--accent); font-weight: 600; transition: gap .2s; }
+    .blog-post__link:hover { gap: 8px; }
+    /* 10. Contact */
+    .page--contact { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .contact-info__email-card { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-sm); margin: 16px 0 28px; transition: all .25s; }
+    .contact-info__email-card:hover { border-color: var(--accent-soft); box-shadow: var(--shadow-md); }
+    .contact-info__email-card::before { content: "\2709"; font-size: 1.2rem; color: var(--accent); }
+    .contact-email { font-size: 1.05rem; font-weight: 600; color: var(--text); }
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .contact-list li { display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm); transition: all .2s; }
+    .contact-list li::before { content: "\2192"; color: var(--accent); font-weight: 600; }
+    .contact-list a { color: var(--text-soft); font-size: .92rem; font-weight: 500; }
+    .contact-list a:hover { color: var(--accent); }
+    .contact-list li:hover { border-color: var(--accent-soft); }
+    .contact-form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 36px; display: flex; flex-direction: column; gap: 18px; box-shadow: var(--shadow-md); }
+    .contact-form label { display: flex; flex-direction: column; gap: 8px; }
+    .contact-form span { font-size: .8rem; font-weight: 600; color: var(--text-soft); text-transform: uppercase; letter-spacing: .08em; }
+    .contact-form input, .contact-form textarea { font-family: var(--f-sans); font-size: .95rem; padding: 13px 16px; border: 1px solid var(--border-strong); border-radius: var(--r-sm); background: var(--surface-2); color: var(--text); transition: all .2s; resize: vertical; }
+    .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px var(--accent-glow); }
+    .contact-form__hint { font-size: .85rem; color: var(--accent-dark); padding: 10px 14px; background: var(--accent-bg); border-radius: var(--r-sm); }
+    /* 11. Footer */
+    .footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding: 36px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .footer__brand { font-family: var(--f-serif); font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+    .footer__brand::before { content: "\2731"; color: var(--accent); }
+    .footer__copy { font-size: .82rem; color: var(--text-mute); }
+    .footer__links { display: flex; gap: 22px; flex-wrap: wrap; }
+    .footer__links a { font-size: .85rem; color: var(--text-soft); font-weight: 500; transition: color .2s; }
+    .footer__links a:hover { color: var(--accent); }
+    /* 12. Responsive */
+    @media (max-width: 900px) {
+      .home-grid { grid-template-columns: 1fr; gap: 40px; text-align: left; }
+      .home-visual { order: -1; }
+      .home-visual__card { max-width: 360px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .gallery__item:nth-child(1) { grid-row: span 1; aspect-ratio: 1/1; }
+      .aiva-hero { grid-template-columns: 1fr; gap: 28px; padding: 36px 28px; }
+      .aiva-hero__visual { flex-direction: row; justify-content: center; }
+      .blog-featured { grid-template-columns: 1fr; }
+      .blog-featured__cover { min-height: 200px; border-right: none; border-bottom: 1px solid var(--border); }
+      .blog-featured__body { padding: 32px 28px; }
+    }
+    @media (max-width: 720px) {
+      .nav__toggle { display: block; }
+      .nav__menu { position: fixed; top: var(--nav-h); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: var(--bg); border-bottom: 1px solid var(--border); padding: 8px 0 20px; transform: translateY(-130%); transition: transform .3s cubic-bezier(.4,0,.2,1); box-shadow: var(--shadow-lg); max-height: calc(100vh - var(--nav-h)); overflow-y: auto; }
+      .nav__menu.is-open { transform: translateY(0); }
+      .nav__link { padding: 15px 24px; border-radius: 0; font-size: .95rem; }
+      .nav__link:hover, .nav__link.is-active { background: var(--accent-bg); }
+      .nav__lang { margin: 12px 24px 0; width: fit-content; }
+      .page { padding: 72px 0 64px; }
+      .page--home { padding-top: 40px; }
+      .home-grid { min-height: auto; padding: 40px 0; }
+      .home-intro__name { font-size: clamp(2.6rem, 14vw, 4rem); }
+      .soul-card { padding: 36px 28px; }
+      .soul-note { padding: 28px 24px; font-size: 1.05rem; }
+      .contact-form { padding: 28px 22px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+    /* 13. Motion */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
+      .reveal.is-visible { opacity: 1; transform: none; }
+      .home-intro__tag, .home-intro__name, .home-intro__roles, .home-intro__desc, .home-intro__cta { animation: fadeUp .8s cubic-bezier(.4,0,.2,1) both; }
+      .home-intro__name { animation-delay: .1s; }
+      .home-intro__roles { animation-delay: .2s; }
+      .home-intro__desc { animation-delay: .3s; }
+      .home-intro__cta { animation-delay: .4s; }
+      .home-visual__card { animation: fadeUp 1s .3s cubic-bezier(.4,0,.2,1) both; }
+      @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION BAR
+       ============================================================ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#home" class="nav__logo" data-i18n="brand">Alexa</a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__menu" id="navMenu">
+        <a href="#home"        class="nav__link" data-i18n="nav.home">Home</a>
+        <a href="#ai-web"      class="nav__link" data-i18n="nav.aiweb">AI Web</a>
+        <a href="#ai-va"       class="nav__link" data-i18n="nav.aiva">AI Persona</a>
+        <a href="#photography" class="nav__link" data-i18n="nav.photo">Photography</a>
+        <a href="#soul"        class="nav__link" data-i18n="nav.soul">Soul Journal</a>
+        <a href="#contact"     class="nav__link" data-i18n="nav.contact">Contact</a>
+        <button class="nav__lang" id="langBtn" aria-label="Switch language">
+          <span class="nav__lang-text" id="langText">繁體中文</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PAGE 1 — HOME -->
+    <section id="home" class="page page--home">
+      <div class="container home-grid">
+        <div class="home-intro">
+          <p class="home-intro__tag" data-i18n="home.tag">Hello, I'm</p>
+          <h1 class="home-intro__name">Alexa</h1>
+          <p class="home-intro__roles" data-i18n="home.roles">
+            AI Web Developer · Photographer · Translator · Tarot Reader · Film &amp; Book Critic
+          </p>
+          <p class="home-intro__desc" data-i18n="home.desc">
+            A multi-disciplinary creator weaving technology, imagery, language and soulful storytelling into a single, coherent practice.
+          </p>
+          <div class="home-intro__cta">
+            <a href="#ai-web" class="btn btn--primary" data-i18n="home.cta.work">View My Work</a>
+            <a href="#contact" class="btn btn--ghost" data-i18n="home.cta.contact">Get in Touch</a>
+          </div>
+        </div>
+        <div class="home-visual">
+          <div class="home-visual__card">
+            <div class="home-visual__avatar">A</div>
+            <div class="home-visual__meta">
+              <span class="home-visual__dot"></span>
+              <span data-i18n="home.based">Based in Earth · Working Worldwide</span>
+            </div>
+            <div class="home-visual__stats">
+              <div class="home-visual__stat">
+                <div class="home-visual__stat-num">5+</div>
+                <div class="home-visual__stat-label" data-i18n="home.stat.disciplines">Disciplines</div>
+              </div>
+              <div class="home-visual__stat">
+                <div class="home-visual__stat-num">&infin;</div>
+                <div class="home-visual__stat-label" data-i18n="home.stat.curiosity">Curiosity</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Skills -->
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow" data-i18n="home.skills.eyebrow">What I Do</span>
+          <h2 class="section-title" data-i18n="home.skills.title">Core Skills</h2>
+          <p class="section-sub" data-i18n="home.skills.sub">The disciplines I move between, every single day.</p>
+        </div>
+        <div class="skills-grid" id="skillsGrid"></div>
+      </div>
+    </section>
+
+    <!-- PAGE 2 — AI WEB -->
+    <section id="ai-web" class="page page--alt page--aiweb">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow" data-i18n="aiweb.eyebrow">Projects</span>
+          <h2 class="section-title" data-i18n="aiweb.title">AI Web Works</h2>
+          <p class="section-sub" data-i18n="aiweb.sub">Websites and tools built with AI-assisted workflows.</p>
+        </div>
+        <div class="cards-grid" id="aiwebGrid"></div>
+      </div>
+    </section>
+
+    <!-- PAGE 2.5 — AI VIRTUAL PERSONA (IG) -->
+    <section id="ai-va" class="page page--alt page--aiva">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow" data-i18n="aiva.eyebrow">My AI Persona</span>
+          <h2 class="section-title" data-i18n="aiva.title">AI Virtual Human</h2>
+          <p class="section-sub" data-i18n="aiva.sub">An AI-generated virtual persona I created on Instagram — a digital character with her own voice and world.</p>
+        </div>
+
+        <!-- IG feature card -->
+        <div class="aiva-hero reveal">
+          <div class="aiva-hero__visual">
+            <div class="aiva-hero__orb">
+              <span class="aiva-hero__pulse"></span>
+              <span class="aiva-hero__icon">&#9881;</span>
+            </div>
+            <div class="aiva-hero__badge" data-i18n="aiva.status">Live on Instagram</div>
+          </div>
+          <div class="aiva-hero__body">
+            <h3 data-i18n="aiva.feature.title">Meet @marenlofts</h3>
+            <p data-i18n="aiva.feature.desc">
+              I created an AI virtual persona — a fully AI-generated digital character living on Instagram. She has her own personality, style, and visual world. Follow her journey and explore what happens when AI becomes a person.
+            </p>
+            <div class="aiva-hero__links">
+              <a href="https://www.instagram.com/marenlofts" target="_blank" rel="noopener" class="btn btn--primary" data-i18n="aiva.visit">Visit @marenlofts on Instagram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3 — PHOTOGRAPHY -->
+    <section id="photography" class="page page--photo">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow" data-i18n="photo.eyebrow">Visual Diary</span>
+          <h2 class="section-title" data-i18n="photo.title">Photography</h2>
+          <p class="section-sub" data-i18n="photo.sub">A selection of moments, light and silence.</p>
+        </div>
+        <div class="photo-cta">
+          <a href="https://www.instagram.com/star.in.views" target="_blank" rel="noopener" class="btn btn--primary">
+            <span data-i18n="photo.ig">Follow on Instagram</span> @star.in.views &rarr;
+          </a>
+        </div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- PAGE 4 — SOUL JOURNAL (blog-style) -->
+    <section id="soul" class="page page--soul">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow" data-i18n="soul.eyebrow">Inner Worlds</span>
+          <h2 class="section-title" data-i18n="soul.title">Soul Journal</h2>
+          <p class="section-sub" data-i18n="soul.sub">A space where I share my thoughts on tarot, films, books, and the quiet things in between. Long-form, unhurried — like a letter to a friend.</p>
+        </div>
+
+        <!-- Featured post (latest long-form) -->
+        <article class="blog-featured reveal" id="blogFeatured">
+          <!-- JS-injected: latest article -->
+        </article>
+
+        <!-- Two service cards: Tarot + Film/Book reading (still here, but as side offering) -->
+        <div class="soul-services">
+          <article class="soul-card soul-card--tarot">
+            <div class="soul-card__icon">&#10022;</div>
+            <h3 data-i18n="soul.tarot.title">Tarot Reading</h3>
+            <p data-i18n="soul.tarot.desc">A quiet conversation with symbols. I read the cards not to predict the future, but to help you see the shape of what you already feel.</p>
+            <div class="soul-card__links">
+              <a href="#contact" class="btn btn--small btn--primary" data-i18n="soul.tarot.book">Book a Reading</a>
+              <!-- ext-link slot: replace # with your booking URL -->
+              <a href="#" target="_blank" rel="noopener" class="btn btn--small btn--ghost" data-i18n="soul.tarot.more">External Link</a>
+            </div>
+          </article>
+          <article class="soul-card soul-card--reading">
+            <div class="soul-card__icon">&#9680;</div>
+            <h3 data-i18n="soul.reading.title">Film &amp; Book Reading</h3>
+            <p data-i18n="soul.reading.desc">Slow, attentive interpretations of the stories that move us. Each reading is an invitation to sit with a film or a book a little longer.</p>
+            <div class="soul-card__links">
+              <!-- ext-link slot: replace # with your article/booklist URL -->
+              <a href="#" target="_blank" rel="noopener" class="btn btn--small btn--ghost" data-i18n="soul.reading.list">Reading List</a>
+              <a href="#" target="_blank" rel="noopener" class="btn btn--small btn--ghost" data-i18n="soul.reading.articles">Articles</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Blog post list (JS-injected, easy to add more posts) -->
+        <div class="blog-list-head">
+          <h3 class="blog-list-title" data-i18n="soul.posts.title">All Posts</h3>
+          <!-- ext-link slot: link to your full blog / Substack / Medium -->
+          <a href="#" target="_blank" rel="noopener" class="btn btn--small btn--ghost" data-i18n="soul.posts.viewall">View All on Blog →</a>
+        </div>
+        <div class="blog-list" id="blogList"></div>
+
+        <blockquote class="soul-note" data-i18n="soul.note">
+          Sometimes the gentlest guidance is simply to be witnessed — and to remember you already hold the answer.
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- PAGE 5 — CONTACT -->
+    <section id="contact" class="page page--contact">
+      <div class="container contact-grid">
+        <div class="contact-info">
+          <div class="section-head">
+            <span class="section-eyebrow" data-i18n="contact.eyebrow">Say Hello</span>
+            <h2 class="section-title" data-i18n="contact.title">Let's Talk</h2>
+            <p class="section-sub" data-i18n="contact.sub">For projects, collaborations, or a quiet reading — write to me.</p>
+          </div>
+          <a href="mailto:solstice.qcui@gmail.com" class="contact-info__email-card">
+            <span class="contact-email">solstice.qcui@gmail.com</span>
+          </a>
+          <ul class="contact-list">
+            <li><a href="https://www.instagram.com/star.in.views" target="_blank" rel="noopener">Instagram @star.in.views</a></li>
+            <li><a href="#" target="_blank" rel="noopener" data-i18n="contact.more">+ Add another channel</a></li>
+          </ul>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <label>
+            <span data-i18n="contact.form.name">Your Name</span>
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            <span data-i18n="contact.form.email">Your Email</span>
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            <span data-i18n="contact.form.msg">Message</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button type="submit" class="btn btn--primary" data-i18n="contact.form.send">Send Message</button>
+          <p class="contact-form__hint" id="formHint" hidden></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer__brand">Alexa</span>
+      <span class="footer__copy" id="footerCopy"></span>
+      <div class="footer__links">
+        <a href="#home" data-i18n="nav.home">Home</a>
+        <a href="#ai-web" data-i18n="nav.aiweb">AI Web</a>
+        <a href="#ai-va" data-i18n="nav.aiva">AI Assistant</a>
+        <a href="#photography" data-i18n="nav.photo">Photography</a>
+        <a href="#soul" data-i18n="nav.soul">Soul Journal</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================================================================
+       ALL JS INLINED HERE  —  i18n + data + app logic
+       ================================================================ -->
+  <script>
+  /* ---- 1. i18n (bilingual strings) ---- */
+  const translations = {
+    en: {
+      "brand":"Alexa",
+      "nav.home":"Home","nav.aiweb":"AI Web","nav.aiva":"AI Persona","nav.photo":"Photography","nav.soul":"Soul Journal","nav.contact":"Contact",
+      "home.tag":"Hello, I'm",
+      "home.roles":"AI Web Developer · Photographer · Translator · Tarot Reader · Film & Book Critic",
+      "home.desc":"A multi-disciplinary creator weaving technology, imagery, language and soulful storytelling into a single, coherent practice — crafting experiences that are as useful as they are beautiful.",
+      "home.cta.work":"View My Work","home.cta.contact":"Get in Touch",
+      "home.based":"Based in Earth · Working Worldwide",
+      "home.stat.disciplines":"Disciplines","home.stat.curiosity":"Curiosity",
+      "home.skills.eyebrow":"What I Do","home.skills.title":"Core Skills","home.skills.sub":"The disciplines I move between, every single day.",
+      "aiweb.eyebrow":"Projects","aiweb.title":"AI Web Works","aiweb.sub":"Websites and tools built with AI-assisted workflows.",
+      "aiva.eyebrow":"My AI Persona","aiva.title":"AI Virtual Human","aiva.sub":"An AI-generated virtual persona I created on Instagram — a digital character with her own voice and world.",
+      "aiva.status":"Live on Instagram","aiva.feature.title":"Meet @marenlofts","aiva.feature.desc":"I created an AI virtual persona — a fully AI-generated digital character living on Instagram. She has her own personality, style, and visual world. Follow her journey and explore what happens when AI becomes a person.",
+      "aiva.visit":"Visit @marenlofts on Instagram",
+      "photo.eyebrow":"Visual Diary","photo.title":"Photography","photo.sub":"A selection of moments, light and silence.","photo.ig":"Follow on Instagram",
+      "soul.eyebrow":"Inner Worlds","soul.title":"Soul Journal","soul.sub":"A space where I share my thoughts on tarot, films, books, and the quiet things in between. Long-form, unhurried — like a letter to a friend.",
+      "soul.posts.title":"All Posts","soul.posts.viewall":"View All on Blog →",
+      "soul.feat.tag":"Featured","soul.feat.date":"Oct 2026","soul.feat.title":"On Letting Things Arrive","soul.feat.excerpt":"There's a difference between chasing and receiving. This is a meditation on tarot, stillness, and why the best things in my life came when I stopped gripping so hard. A long-form piece on surrender, agency, and the cards that taught me both.",
+      "soul.feat.link":"Read Full Essay →",
+      "soul.b1.tag":"Tarot","soul.b1.date":"Oct 2026","soul.b1.title":"What the Tower Really Means","soul.b1.excerpt":"We fear the Tower because we think it's destruction. But what if it's renovation? A re-reading of the most misunderstood card in the deck.",
+      "soul.b2.tag":"Film","soul.b2.date":"Sep 2026","soul.b2.title":"In the Mood for Love: The Architecture of Longing","soul.b2.excerpt":"Wong Kar-wai's film is not about love but about the shape of absence. A close reading of corridors, clocks, and cheongsam.",
+      "soul.b3.tag":"Books","soul.b3.date":"Sep 2026","soul.b3.title":"The Unbearable Lightness of Being, Revisited","soul.b3.excerpt":"Kundera asks whether a single life is a dress rehearsal or the performance itself. Twenty years later, I finally have an answer — or at least a better question.",
+      "soul.b4.tag":"Reflection","soul.b4.date":"Aug 2026","soul.b4.title":"On Creative Restlessness","soul.b4.excerpt":"Why can't I just pick one thing? A letter to myself about why being many things at once isn't scattered — it's a pattern.",
+      "soul.read.link":"Read More →",
+      "soul.tarot.title":"Tarot Reading","soul.tarot.desc":"A quiet conversation with symbols. I read the cards not to predict the future, but to help you see the shape of what you already feel — so you can move forward a little more lightly.",
+      "soul.tarot.book":"Book a Reading","soul.tarot.more":"External Link",
+      "soul.reading.title":"Film & Book Reading","soul.reading.desc":"Slow, attentive interpretations of the stories that move us. Each reading is an invitation to sit with a film or a book a little longer — and to carry its light into ordinary days.",
+      "soul.reading.list":"Reading List","soul.reading.articles":"Articles",
+      "soul.note":"\u201CSometimes the gentlest guidance is simply to be witnessed — and to remember you already hold the answer.\u201D",
+      "contact.eyebrow":"Say Hello","contact.title":"Let's Talk","contact.sub":"For projects, collaborations, or a quiet reading — write to me.",
+      "contact.more":"+ Add another channel",
+      "contact.form.name":"Your Name","contact.form.email":"Your Email","contact.form.msg":"Message","contact.form.send":"Send Message",
+      "contact.form.hint":"Opening your email app\u2026 If nothing happens, write to solstice.qcui@gmail.com directly.",
+      "skill.aiweb.title":"AI Web Development","skill.aiweb.desc":"Building websites & tools with AI-assisted workflows — fast, clean, intentional.",
+      "skill.photo.title":"Photography","skill.photo.desc":"Documenting light, texture and quiet moments across streets and landscapes.",
+      "skill.trans.title":"EN → ZH Translation","skill.trans.desc":"Faithful, natural localisation between English and Chinese — tone-aware.",
+      "skill.tarot.title":"Tarot Reading","skill.tarot.desc":"Gentle, symbol-led guidance for reflection and decision-making.",
+      "skill.reading.title":"Film & Book Reading","skill.reading.desc":"Deep, slow interpretation of the stories that shape us.",
+      "skill.more.title":"More to come","skill.more.desc":"New disciplines are always growing here — stay curious.",
+      "p1.title":"Lumen Studio","p1.desc":"A minimalist portfolio template for photographers, generated and refined with AI.",
+      "p2.title":"Tarot Mirror","p2.desc":"An interactive tarot companion web app with card-of-the-day and journaling.",
+      "p3.title":"Reading Room","p3.desc":"A long-form reading & annotation platform for film and book essays.",
+      "project.visit":"Visit Site","project.more":"Details",
+      "g1":"Street","g2":"Portrait","g3":"Travel","g4":"Nature","g5":"Architecture","g6":"Monochrome",
+      "footer.copy":"© 2026 Alexa. Crafted with care.","lang.btn":"繁體中文"
+    },
+    zh: {
+      "brand":"Alexa",
+      "nav.home":"首頁","nav.aiweb":"AI 網站","nav.aiva":"AI 虛擬人","nav.photo":"攝影","nav.soul":"心靈札記","nav.contact":"聯絡",
+      "home.tag":"你好，我是",
+      "home.roles":"AI 網站開發 · 攝影師 · 中英翻譯 · 塔羅解讀 · 電影與書籍深度解讀",
+      "home.desc":"一位跨界創作者，將科技、影像、語言與療癒敘事編織成一條完整路徑——做出既有用、又好看的體驗。",
+      "home.cta.work":"查看作品","home.cta.contact":"與我聯絡",
+      "home.based":"立足地球 · 與世界協作",
+      "home.stat.disciplines":"領域","home.stat.curiosity":"好奇",
+      "home.skills.eyebrow":"我做的事","home.skills.title":"核心技能","home.skills.sub":"我每天游走其間的多元領域。",
+      "aiweb.eyebrow":"專案","aiweb.title":"AI 網站作品","aiweb.sub":"以 AI 協作流程搭建的網站與工具。",
+      "aiva.eyebrow":"我的 AI 虛擬人","aiva.title":"AI 虛擬人","aiva.sub":"我在 Instagram 上創建的 AI 虛擬人——一個擁有自己聲音與世界的數位角色。",
+      "aiva.status":"Instagram 上線中","aiva.feature.title":"來認識 @marenlofts","aiva.feature.desc":"我創造了一個 AI 虛擬人——一個完全由 AI 生成的數位角色，活在 Instagram 上。她有自己的性格、風格和視覺世界。追蹤她的旅程，探索當 AI 成為一個人，會發生什麼事。",
+      "aiva.visit":"前往 Instagram 追蹤 @marenlofts",
+      "photo.eyebrow":"視覺日記","photo.title":"攝影作品","photo.sub":"一些關於時刻、光線與寧靜的紀錄。","photo.ig":"追蹤 Instagram",
+      "soul.eyebrow":"內在風景","soul.title":"心靈札記","soul.sub":"在這裡，我分享關於塔羅、電影、書籍，以及那些夾縫中安靜事物的想法。長文、不趕——像寫給朋友的信。",
+      "soul.posts.title":"全部文章","soul.posts.viewall":"查看完整網誌 →",
+      "soul.feat.tag":"精選","soul.feat.date":"2026 年 10 月","soul.feat.title":"論讓事物自己抵達","soul.feat.excerpt":"追逐和接收是不同的。這是一段關於塔羅、靜止，以及我生命中最好的事物為何都在我鬆手時才來的冥想。一篇關於臣服、能動性，以及同時教會我兩者的牌的長文。",
+      "soul.feat.link":"閱讀全文 →",
+      "soul.b1.tag":"塔羅","soul.b1.date":"2026 年 10 月","soul.b1.title":"塔牌真正的含義","soul.b1.excerpt":"我們害怕塔牌，以為它代表毀滅。但如果它是翻修呢？重新解讀牌組中最被誤解的一張。",
+      "soul.b2.tag":"電影","soul.b2.date":"2026 年 9 月","soul.b2.title":"花樣年華：渴望的建築學","soul.b2.excerpt":"王家衛的電影不是關於愛，而是關於缺席的形狀。對走廊、時鐘與旗袍的細讀。",
+      "soul.b3.tag":"書籍","soul.b3.date":"2026 年 9 月","soul.b3.title":"重讀《生命中不能承受之輕》","soul.b3.excerpt":"米蘭·昆德拉問，一生究竟是彩排還是正式演出。二十年後，我終於有了答案——或者至少，一個更好的問題。",
+      "soul.b4.tag":"隨筆","soul.b4.date":"2026 年 8 月","soul.b4.title":"論創作的躁動不安","soul.b4.excerpt":"為什麼我就是沒辦法只選一件事？一封寫給自己的信，關於同時做很多事不是散漫——而是一種 pattern。",
+      "soul.read.link":"繼續閱讀 →",
+      "soul.tarot.title":"塔羅解讀","soul.tarot.desc":"一場與符號的靜靜對話。我解牌，不是為了預測未來，而是幫你看清自己早已感知的輪廓——讓你能再輕盈一點地向前走。",
+      "soul.tarot.book":"預約解讀","soul.tarot.more":"外部連結",
+      "soul.reading.title":"電影與書籍解讀","soul.reading.desc":"對那些感動我們的故事，做緩慢而專注的詮釋。每一次解讀，都是一次邀請——與一部電影或一本書多待一會兒，把它的光帶回日常。",
+      "soul.reading.list":"閱讀書單","soul.reading.articles":"相關文章",
+      "soul.note":"「有時最溫柔的引導，只是被好好看見——並記起，答案其實一直在你手裡。」",
+      "contact.eyebrow":"說聲你好","contact.title":"聊聊吧","contact.sub":"合作、企劃，或一場靜靜的解讀——寫信給我。",
+      "contact.more":"+ 新增其他聯絡管道",
+      "contact.form.name":"你的名字","contact.form.email":"你的 Email","contact.form.msg":"訊息內容","contact.form.send":"送出訊息",
+      "contact.form.hint":"正在開啟郵件應用⋯⋯若無反應，請直接寄至 solstice.qcui@gmail.com。",
+      "skill.aiweb.title":"AI 網站開發","skill.aiweb.desc":"以 AI 協作流程搭建網站與工具——快速、乾淨、有意識。",
+      "skill.photo.title":"攝影","skill.photo.desc":"紀錄街頭、地景中的光、質地與寧靜時刻。",
+      "skill.trans.title":"中英翻譯","skill.trans.desc":"貼近語氣、自然忠實的中英在地化翻譯。",
+      "skill.tarot.title":"塔羅解讀","skill.tarot.desc":"以符號為引，溫柔地陪伴反思與決策。",
+      "skill.reading.title":"電影與書籍解讀","skill.reading.desc":"對形塑我們的故事，做緩慢而深入的詮釋。",
+      "skill.more.title":"持續生長","skill.more.desc":"這裡的領域會不斷增加——保持好奇。",
+      "p1.title":"Lumen Studio","p1.desc":"為攝影師打造的極簡作品集模板，由 AI 生成並細修。",
+      "p2.title":"Tarot Mirror","p2.desc":"互動式塔羅陪伴網站，含每日一牌與日記功能。",
+      "p3.title":"Reading Room","p3.desc":"為電影與書籍長文打造的閱讀與批注平台。",
+      "project.visit":"前往網站","project.more":"查看詳情",
+      "g1":"街拍","g2":"人像","g3":"旅行","g4":"自然","g5":"建築","g6":"黑白",
+      "footer.copy":"© 2026 Alexa. 用心製作。","lang.btn":"English"
+    }
+  };
+
+  /* ---- 2. Editable content arrays ---- */
+  /* To add a skill/project/photo, copy a block and edit.
+     For text, add matching keys to `translations` above (both en + zh). */
+  const skills = [
+    { icon:"\u25C8", titleKey:"skill.aiweb.title",  descKey:"skill.aiweb.desc",
+      links:[ {label:{en:"See work",zh:"看作品"}, href:"#ai-web"} ] },
+    { icon:"\u25C9", titleKey:"skill.photo.title",  descKey:"skill.photo.desc",
+      links:[ {label:{en:"Gallery",zh:"作品集"}, href:"#photography"} ] },
+    { icon:"\u275D", titleKey:"skill.trans.title",  descKey:"skill.trans.desc",
+      links:[ {label:{en:"Samples",zh:"譯作 sample"}, href:"#"} ] },
+    { icon:"\u2726", titleKey:"skill.tarot.title",  descKey:"skill.tarot.desc",
+      links:[ {label:{en:"Book a reading",zh:"預約解讀"}, href:"#soul"} ] },
+    { icon:"\u25D0", titleKey:"skill.reading.title",descKey:"skill.reading.desc",
+      links:[ {label:{en:"Reading list",zh:"閱讀書單"}, href:"#"} ] },
+    { icon:"\u2727", titleKey:"skill.more.title",   descKey:"skill.more.desc", links:[] }
+  ];
+
+  const projects = [
+    { tag:{en:"Web · Template",zh:"網站 · 模板"}, titleKey:"p1.title", descKey:"p1.desc", img:"",
+      links:[ {labelKey:"project.visit",href:"#"}, {labelKey:"project.more",href:"#"} ] },
+    { tag:{en:"Web App",zh:"網頁應用"}, titleKey:"p2.title", descKey:"p2.desc", img:"",
+      links:[ {labelKey:"project.visit",href:"#"}, {labelKey:"project.more",href:"#"} ] },
+    { tag:{en:"Platform",zh:"平台"}, titleKey:"p3.title", descKey:"p3.desc", img:"",
+      links:[ {labelKey:"project.visit",href:"#"}, {labelKey:"project.more",href:"#"} ] }
+  ];
+
+  const gallery = [
+    { labelKey:"g1", href:"https://www.instagram.com/star.in.views" },
+    { labelKey:"g2", href:"https://www.instagram.com/star.in.views" },
+    { labelKey:"g3", href:"https://www.instagram.com/star.in.views" },
+    { labelKey:"g4", href:"https://www.instagram.com/star.in.views" },
+    { labelKey:"g5", href:"https://www.instagram.com/star.in.views" },
+    { labelKey:"g6", href:"https://www.instagram.com/star.in.views" }
+  ];
+
+  /* Soul Journal — blog posts.
+     Copy a block to add more posts. ext-link slot: replace href.
+     For long-form content, write your full text in a separate page/platform
+     and link to it via href. */
+  const blogPosts = [
+    { tagKey:"soul.b1.tag", dateKey:"soul.b1.date", titleKey:"soul.b1.title",
+      excerptKey:"soul.b1.excerpt", linkKey:"soul.read.link", href:"#", icon:"\u2727" },
+    { tagKey:"soul.b2.tag", dateKey:"soul.b2.date", titleKey:"soul.b2.title",
+      excerptKey:"soul.b2.excerpt", linkKey:"soul.read.link", href:"#", icon:"\u25D0" },
+    { tagKey:"soul.b3.tag", dateKey:"soul.b3.date", titleKey:"soul.b3.title",
+      excerptKey:"soul.b3.excerpt", linkKey:"soul.read.link", href:"#", icon:"\u275D" },
+    { tagKey:"soul.b4.tag", dateKey:"soul.b4.date", titleKey:"soul.b4.title",
+      excerptKey:"soul.b4.excerpt", linkKey:"soul.read.link", href:"#", icon:"\u25C8" }
+  ];
+
+  /* ---- 3. App logic ---- */
+  (function () {
+    "use strict";
+    const LANG_KEY = "alexa-lang";
+    let currentLang = localStorage.getItem(LANG_KEY) || "en";
+
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem(LANG_KEY, lang);
+      document.documentElement.lang = lang === "zh" ? "zh-TW" : "en";
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        const txt = translations[lang][key];
+        if (txt) el.textContent = txt;
+      });
+      const langText = document.getElementById("langText");
+      if (langText) langText.textContent = translations[lang]["lang.btn"];
+      renderSkills(); renderProjects(); renderGallery(); renderBlogFeatured(); renderBlogList(); setFooterYear();
+    }
+    document.getElementById("langBtn").addEventListener("click", () => {
+      applyLang(currentLang === "en" ? "zh" : "en");
+    });
+
+    function renderSkills() {
+      const grid = document.getElementById("skillsGrid");
+      if (!grid) return;
+      grid.innerHTML = skills.map(s => `
+        <article class="skill-card reveal">
+          <span class="skill-card__icon">${s.icon}</span>
+          <h3 class="skill-card__title">${translations[currentLang][s.titleKey]}</h3>
+          <p class="skill-card__desc">${translations[currentLang][s.descKey]}</p>
+          ${s.links.map(l => `
+            <a class="skill-card__link" href="${l.href}" ${l.href.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}>
+              ${l.label[currentLang]} \u2192
+            </a>`).join("")}
+        </article>`).join("");
+      observeReveal();
+    }
+
+    function renderProjects() {
+      const grid = document.getElementById("aiwebGrid");
+      if (!grid) return;
+      grid.innerHTML = projects.map(p => `
+        <article class="project-card reveal">
+          <div class="project-card__thumb">
+            ${p.img ? `<img src="${p.img}" alt="${translations[currentLang][p.titleKey]}" />` : translations[currentLang][p.titleKey].charAt(0)}
+          </div>
+          <div class="project-card__body">
+            <p class="project-card__tag">${p.tag[currentLang]}</p>
+            <h3 class="project-card__title">${translations[currentLang][p.titleKey]}</h3>
+            <p class="project-card__desc">${translations[currentLang][p.descKey]}</p>
+            <div class="project-card__links">
+              ${p.links.map(l => `
+                <a class="btn btn--small ${l === p.links[0] ? "btn--primary" : "btn--ghost"}"
+                   href="${l.href}" ${l.href.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}>
+                   ${translations[currentLang][l.labelKey]}
+                </a>`).join("")}
+            </div>
+          </div>
+        </article>`).join("");
+      observeReveal();
+    }
+
+    function renderGallery() {
+      const g = document.getElementById("gallery");
+      if (!g) return;
+      g.innerHTML = gallery.map(item => `
+        <div class="gallery__item reveal">
+          <a href="${item.href}" target="_blank" rel="noopener">
+            ${item.img
+              ? `<img src="${item.img}" alt="${translations[currentLang][item.labelKey]}" />`
+              : `<span class="gallery__placeholder">${translations[currentLang][item.labelKey]}</span>`}
+            <span class="gallery__label">${translations[currentLang][item.labelKey]} \u2197</span>
+          </a>
+        </div>`).join("");
+      observeReveal();
+    }
+
+    function renderBlogFeatured() {
+      const el = document.getElementById("blogFeatured");
+      if (!el) return;
+      const t = translations[currentLang];
+      el.innerHTML = `
+        <div class="blog-featured__cover reveal">
+          <span class="blog-featured__cover-icon">\u2727</span>
+        </div>
+        <div class="blog-featured__body reveal">
+          <span class="blog-featured__tag">${t["soul.feat.tag"]}</span>
+          <p class="blog-featured__date">${t["soul.feat.date"]}</p>
+          <h3 class="blog-featured__title">${t["soul.feat.title"]}</h3>
+          <p class="blog-featured__excerpt">${t["soul.feat.excerpt"]}</p>
+          <!-- ext-link slot: replace href with your full essay URL (Substack, Medium, Notion, etc.) -->
+          <a class="blog-featured__link" href="#" target="_blank" rel="noopener">${t["soul.feat.link"]}</a>
+        </div>`;
+      observeReveal();
+    }
+
+    function renderBlogList() {
+      const grid = document.getElementById("blogList");
+      if (!grid) return;
+      const t = translations[currentLang];
+      grid.innerHTML = blogPosts.map(b => `
+        <article class="blog-post reveal">
+          <div class="blog-post__cover">${b.icon}</div>
+          <div class="blog-post__body">
+            <span class="blog-post__tag">${t[b.tagKey]}</span>
+            <p class="blog-post__date">${t[b.dateKey]}</p>
+            <h3 class="blog-post__title">${t[b.titleKey]}</h3>
+            <p class="blog-post__excerpt">${t[b.excerptKey]}</p>
+            <!-- ext-link slot: replace href with your post URL -->
+            <a class="blog-post__link" href="${b.href}" ${b.href.startsWith("http") ? 'target="_blank" rel="noopener"' : ""}>
+              ${t[b.linkKey]}
+            </a>
+          </div>
+        </article>`).join("");
+      observeReveal();
+    }
+
+    const navToggle = document.getElementById("navToggle");
+    const navMenu = document.getElementById("navMenu");
+    navToggle.addEventListener("click", () => {
+      const open = navMenu.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    navMenu.querySelectorAll("a").forEach(a =>
+      a.addEventListener("click", () => {
+        navMenu.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      })
+    );
+
+    const sections = ["home","ai-web","ai-va","photography","soul","contact"]
+      .map(id => document.getElementById(id)).filter(Boolean);
+    const navLinks = [...document.querySelectorAll(".nav__link")];
+    function syncActiveNav() {
+      const pos = window.scrollY + 90;
+      let activeId = "home";
+      sections.forEach(s => { if (s.offsetTop <= pos) activeId = s.id; });
+      navLinks.forEach(l => {
+        l.classList.toggle("is-active", l.getAttribute("href") === "#" + activeId);
+      });
+    }
+    window.addEventListener("scroll", syncActiveNav, { passive: true });
+
+    const form = document.getElementById("contactForm");
+    const hint = document.getElementById("formHint");
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const subject = encodeURIComponent(`Portfolio message from ${data.get("name")}`);
+      const body = encodeURIComponent(`${data.get("message")}\n\n\u2014 ${data.get("name")} (${data.get("email")})`);
+      window.location.href = `mailto:solstice.qcui@gmail.com?subject=${subject}&body=${body}`;
+      hint.hidden = false;
+      hint.textContent = translations[currentLang]["contact.form.hint"];
+      form.reset();
+    });
+
+    let io;
+    function observeReveal() {
+      if (!("IntersectionObserver" in window)) {
+        document.querySelectorAll(".reveal").forEach(el => el.classList.add("is-visible"));
+        return;
+      }
+      if (!io) {
+        io = new IntersectionObserver(entries => {
+          entries.forEach(en => {
+            if (en.isIntersecting) { en.target.classList.add("is-visible"); io.unobserve(en.target); }
+          });
+        }, { threshold: 0.12 });
+      }
+      document.querySelectorAll(".reveal:not(.is-visible)").forEach(el => io.observe(el));
+    }
+
+    function setFooterYear() {
+      const el = document.getElementById("footerCopy");
+      if (el) el.textContent = translations[currentLang]["footer.copy"].replace("2026", new Date().getFullYear());
+    }
+
+    applyLang(currentLang);
+    syncActiveNav();
+    observeReveal();
+  })();
+  </script>
+</body>
+</html>
